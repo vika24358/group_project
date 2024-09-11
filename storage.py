@@ -90,7 +90,8 @@ class StorageSQLite(BaseStorageProduct):
             """
             result: tuple = cursor.execute(query).fetchone()
             if not result:
-                raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f'Check your entity id, product with {_id} does not exist')
+                raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                                    detail=f'Check your entity id, product with {_id} does not exist')
             id, title, description, price, cover, created_at = result
             saved_product = SavedProduct(
                 id=id, title=title, description=description, price=price, cover=cover, created_at=created_at
@@ -141,5 +142,6 @@ class StorageSQLite(BaseStorageProduct):
                                WHERE id = :Id
                    """
             cursor.execute(query, {'Id': _id})
+
 
 storage = StorageSQLite('db.sqlite')
